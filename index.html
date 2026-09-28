@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Retro Screen Control</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #00ff66;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      border: 2px solid #00ff66;
+      padding: 20px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 5px;
+      font-size: 0.9em;
+    }
+
+    input, select, button {
+      background-color: #000;
+      color: #00ff66;
+      border: 1px solid #00ff66;
+      padding: 8px;
+      font-family: inherit;
+      border-radius: 4px;
+    }
+
+    button {
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00ff66;
+      color: #000;
+    }
+
+    .display-preview {
+      margin-top: 20px;
+      width: 100%;
+      height: 200px;
+      border: 1px dashed #00ff66;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #050505;
+    }
+
+    .screen-content {
+      width: 100px;
+      height: 100px;
+      background-color: #00ff66;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>CONTROLE DE TELA RETRO</h1>
+
+  <div class="field">
+    <label for="appSelect">Selecionar Aplicativo Retro:</label>
+    <select id="appSelect">
+      <option value="Snake Game">Jogo da Cobrinha</option>
+      <option value="Space Invaders">Space Invaders</option>
+      <option value="Tetris Retro">Tetris Retro</option>
+      <option value="Pac-Man 8-bit">Pac-Man 8-bit</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="zoomRange">Nível de Zoom (1x a 5x):</label>
+    <input type="range" id="zoomRange" min="1" max="5" step="0.1" value="1">
+  </div>
+
+  <div class="field">
+    <label for="stretchX">Esticar Largura (X):</label>
+    <input type="range" id="stretchX" min="1" max="3" step="0.1" value="1">
+  </div>
+
+  <div class="field">
+    <label for="fpsInput">Taxa de FPS Desejada:</label>
+    <input type="number" id="fpsInput" value="60" min="1" max="999999">
+  </div>
+
+  <button onclick="aplicarConfiguracoes()">Aplicar Ajustes</button>
+
+  <div class="display-preview">
+    <div id="screen" class="screen-content">TELA</div>
+  </div>
+
+  <p id="status" style="font-size: 0.8em; margin-top: 15px;"></p>
+</div>
+
+<script>
+  function aplicarConfiguracoes() {
+    const app = document.getElementById('appSelect').value;
+    const zoom = document.getElementById('zoomRange').value;
+    const stretchX = document.getElementById('stretchX').value;
+    const fps = document.getElementById('fpsInput').value;
+    const screen = document.getElementById('screen');
+    const status = document.getElementById('status');
+
+    // Aplica as transformações visuais no elemento de simulação da tela
+    screen.style.transform = `scale(${zoom}) scaleX(${stretchX})`;
+    screen.innerText = app;
+
+    status.innerText = `App: ${app} | FPS Configurado: ${fps} | Zoom: ${zoom}x | Esticar X: ${stretchX}x`;
+  }
+</script>
+
+</body>
+</html>
